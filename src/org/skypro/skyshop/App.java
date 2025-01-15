@@ -10,29 +10,29 @@ public class App {
         Product apple = new Product("Apple", 5);
         Product banana = new Product("Banana", 9);
 
-        productBasket.AddProduct(apple);
-        productBasket.AddProduct(banana);
-        productBasket.AddProduct(new Product("Egg", 15));
-        productBasket.AddProduct(banana);
-        productBasket.AddProduct(apple);
+        productBasket.addProduct(apple);
+        productBasket.addProduct(banana);
+        productBasket.addProduct(new Product("Egg", 15));
+        productBasket.addProduct(banana);
+        productBasket.addProduct(apple);
 
-        productBasket.AddProduct(banana);
+        productBasket.addProduct(banana);
 
-        productBasket.DisplayBasket();
+        productBasket.displayBasket();
 
-        System.out.println(productBasket.GetTotal());
+        System.out.println(productBasket.getTotal());
 
-        System.out.println(productBasket.CheckProduct("Egg"));
+        System.out.println(productBasket.checkProduct("Egg"));
 
-        System.out.println(productBasket.CheckProduct("Pineapple"));
+        System.out.println(productBasket.checkProduct("Pineapple"));
 
-        productBasket.Clear();
+        productBasket.clear();
 
-        productBasket.DisplayBasket();
+        productBasket.displayBasket();
 
-        System.out.println(productBasket.GetTotal());
+        System.out.println(productBasket.getTotal());
 
-        System.out.println(productBasket.CheckProduct("Egg"));
+        System.out.println(productBasket.checkProduct("Egg"));
 
 
     }

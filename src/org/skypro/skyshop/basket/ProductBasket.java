@@ -7,13 +7,13 @@ public class ProductBasket {
     private final Product[] products = new Product[5];
     private boolean isEmpty;
 
-    public void AddProduct(Product product) {
-        if (products[4] != null) {
+    public void addProduct(Product product) {
+        if (products[products.length-1] != null) {
             System.out.println("Невозможно добавить продукт");
             return;
         }
 
-        for (int i = 0; i <= 4; i++) {
+        for (int i = 0; i < products.length; i++) {
             if (products[i] == null) {
                 products[i] = product;
                 break;
@@ -23,7 +23,7 @@ public class ProductBasket {
 
     }
 
-    public int GetTotal() {
+    public int getTotal() {
         int sum = 0;
 
         if (!isEmpty) {
@@ -34,7 +34,7 @@ public class ProductBasket {
         return sum;
     }
 
-    public void DisplayBasket() {
+    public void displayBasket() {
 
         if (isEmpty) {
             System.out.println("в корзине пусто");
@@ -42,12 +42,12 @@ public class ProductBasket {
             for (Product product : products) {
                 System.out.println(product.getName() + ": " + product.getPrice());
             }
-            System.out.println("Итого: " + GetTotal());
+            System.out.println("Итого: " + getTotal());
         }
 
     }
 
-    public boolean CheckProduct(String productName) {
+    public boolean checkProduct(String productName) {
         boolean isPresent = false;
         if (!isEmpty) {
             for (Product product : products) {
@@ -61,7 +61,7 @@ public class ProductBasket {
 
     }
 
-    public void Clear() {
+    public void clear() {
         for (int i = 0; i < products.length; i++) {
             products[i] = null;
         }
