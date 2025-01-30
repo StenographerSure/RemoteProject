@@ -8,7 +8,7 @@ public class ProductBasket {
     private boolean isEmpty;
 
     public void addProduct(Product product) {
-        if (products[products.length-1] != null) {
+        if (products[products.length - 1] != null) {
             System.out.println("Невозможно добавить продукт");
             return;
         }
@@ -42,8 +42,8 @@ public class ProductBasket {
             int specialProducts = 0;
             for (Product product : products) {
                 System.out.println(product.toString());
-                if (product.isSpecial()){
-                    specialProducts ++;
+                if (product.isSpecial()) {
+                    specialProducts++;
                 }
 
             }
