@@ -6,10 +6,10 @@ public interface Searchable {
 
     String getContentType();
 
-    String getSearchableName();
+    //String getSearchableName();
 
     default String getStringRepresentation() {
-        return getSearchableName() + " - " + getContentType();
+        return  "имя Searchable -объекта — тип Searchable -объекта";
     }
 
 }

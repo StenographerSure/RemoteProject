@@ -14,7 +14,7 @@ public class SearchEngine {
         int count = 0;
         Searchable[] results = new Searchable[5];
         for (Searchable searchable : searchables) {
-            if (searchable != null && searchable.getSearchableName().contains(SearchTerm)) {
+            if (searchable != null && searchable.getStringRepresentation().contains(SearchTerm)) {
                 results[count] = searchable;
                 if (count < 5) {
                     count++;

@@ -28,7 +28,7 @@ public abstract class Product implements Searchable {
     }
 
     @Override
-    public String getSearchableName() {
+    public String getStringRepresentation() {
         return this.name;
     }
 
