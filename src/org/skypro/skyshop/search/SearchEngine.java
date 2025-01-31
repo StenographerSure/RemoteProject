@@ -1,6 +1,4 @@
-package org.skypro.skyshop.basket;
-
-import org.skypro.skyshop.product.Searchable;
+package org.skypro.skyshop.search;
 
 public class SearchEngine {
 
