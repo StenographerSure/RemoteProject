@@ -1,28 +1,28 @@
 package org.skypro.skyshop;
 
-import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.product.*;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
 
-        ProductBasket productBasket = new ProductBasket();
-        Product apple = new SimpleProduct("Apple", 5);
+        SearchEngine searchEngine = new SearchEngine(10);
+
+        Product apple = new SimpleProduct("apple", 5);
         Product banana = new DiscountedProduct("Banana", 20, 35);
         Product sausage = new DiscountedProduct("Sausage", 50, 5);
+        searchEngine.add(apple);
+        searchEngine.add(banana);
+        searchEngine.add(sausage);
+        searchEngine.add(new SimpleProduct("applesauce", 15));
+        searchEngine.add(new SimpleProduct("applejam", 15));
+        searchEngine.add(new Article("New apples", "delicious beginning"));
+        searchEngine.add(new Article("New dawn", "It began"));
 
-        productBasket.addProduct(apple);
-        productBasket.addProduct(banana);
-        productBasket.addProduct(new FixPriceProduct("Egg"));
-        productBasket.addProduct(sausage);
-        productBasket.addProduct(apple);
 
-        productBasket.addProduct(banana);
-
-        productBasket.displayBasket();
+        System.out.println(Arrays.toString(searchEngine.search("apple")));
 
 
     }
