@@ -1,5 +1,7 @@
 package org.skypro.skyshop.search;
 
+import org.skypro.skyshop.exceptions.BestResultNotFound;
+
 public class SearchEngine {
 
     private final Searchable[] searchables;
@@ -20,8 +22,35 @@ public class SearchEngine {
             }
 
         }
-
         return results;
+    }
+
+    public Searchable searchPrecise(String SearchTerm) throws BestResultNotFound {
+
+        int preciseSearchableID = -1;
+        int tempQuantity = 0;
+        for (int i = 0; i < searchables.length; i++) {
+            int quantity = 0;
+            if (searchables[i] != null && !searchables[i].toString().isBlank()) {
+                for (int index = 0; (index = searchables[i].toString().indexOf(SearchTerm, index)) != -1; index += SearchTerm.length())
+                    quantity++;
+            }
+
+
+            if (quantity > tempQuantity) {
+                preciseSearchableID = i;
+                tempQuantity = quantity;
+            }
+        }
+
+        if (preciseSearchableID > -1) {
+            //System.out.println(tempQuantity);
+            return searchables[preciseSearchableID];
+        } else {
+            throw new BestResultNotFound("Can't find objects with set string");
+        }
+
+
     }
 
     public void add(Searchable searchable) {

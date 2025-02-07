@@ -5,6 +5,9 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String name, int price) {
         super(name);
+        if(price <= 0){
+            throw new IllegalArgumentException("Price of product can be only positive");
+        }
         this.price = price;
     }
 
