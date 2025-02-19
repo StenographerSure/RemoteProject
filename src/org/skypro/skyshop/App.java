@@ -1,15 +1,17 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.product.*;
 
-import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) throws BestResultNotFound {
 
-        SearchEngine searchEngine = new SearchEngine(10);
+        ProductBasket productBasket = new ProductBasket();
+
+        SearchEngine searchEngine = new SearchEngine();
 
         Product apple = new SimpleProduct("apple", 5);
         Product banana = new DiscountedProduct("Banana", 20, 35);
@@ -21,6 +23,26 @@ public class App {
         searchEngine.add(new SimpleProduct("applejam", 15));
         searchEngine.add(new Article("New app", "delicious applications beginning"));
         searchEngine.add(new Article("New app", "appappapp"));
+
+        productBasket.addProduct(apple);
+        productBasket.addProduct(banana);
+        productBasket.addProduct(sausage);
+
+
+        //demo
+
+        productBasket.displayBasket();
+
+        System.out.println("\n");
+
+        System.out.println(productBasket.deleteItem("apple"));
+
+        if (productBasket.deleteItem("Snake").isEmpty())
+            System.out.println("\n" + "Список пуст" + "\n");
+
+        productBasket.displayBasket();
+
+        //demo 2
 
         try {
             Product product = new SimpleProduct("new", 0);
@@ -34,8 +56,6 @@ public class App {
             System.out.println(e);
         }
 
-        //System.out.println(Arrays.toString(searchEngine.search("apple")));
-
         try {
             System.out.println(searchEngine.searchPrecise("app"));
         } catch (Exception e) {
@@ -47,7 +67,6 @@ public class App {
         } catch (Exception e) {
             System.out.println(e);
         }
-
 
     }
 }
