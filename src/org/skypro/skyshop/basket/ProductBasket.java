@@ -6,11 +6,20 @@ import java.util.*;
 
 
 public class ProductBasket {
+
+    private final Map<String, List<Product>> map = new HashMap<>();
     private final LinkedList<Product> products = new LinkedList<>();
     private boolean isEmpty;
 
     public void addProduct(Product product) {
-        products.add(product);
+
+        if (!map.containsKey(product.getName())) {
+            LinkedList<Product> products1 = new LinkedList<>();
+            products1.add(product);
+            map.put(product.getName(), products1);
+        } else {
+            map.get(product.getName()).add(product);
+        }
         isEmpty = false;
     }
 
@@ -18,8 +27,10 @@ public class ProductBasket {
         int sum = 0;
 
         if (!isEmpty) {
-            for (Product product : products) {
-                sum = sum + product.getPrice();
+            for (List<Product> productList : map.values()) {
+                for (Product product : productList) {
+                    sum = sum + product.getPrice();
+                }
             }
         }
         return sum;
@@ -31,46 +42,46 @@ public class ProductBasket {
             System.out.println("в корзине пусто");
         } else {
             int specialProducts = 0;
-            for (Product product : products) {
-                System.out.println(product.toString());
-                if (product.isSpecial()) {
-                    specialProducts++;
+            for (List<Product> productList : map.values()) {
+                for (Product product : productList) {
+                    System.out.println(product.toString());
+                    if (product.isSpecial()) {
+                        specialProducts++;
+                    }
                 }
-
             }
             System.out.println("Итого: " + getTotal());
             System.out.println("Специальных товаров: " + specialProducts);
         }
-
     }
 
     public boolean checkProduct(String productName) {
         boolean isPresent = false;
         if (!isEmpty) {
-            for (Product product : products) {
-                if (product.getName().equals(productName)) {
-                    isPresent = true;
-                    break;
+            for (List<Product> productList : map.values()) {
+                for (Product product : productList) {
+                    if (product.getName().equals(productName)) {
+                        isPresent = true;
+                        break;
+                    }
                 }
             }
         }
         return isPresent;
-
     }
 
     public void clear() {
-        products.clear();
+        map.clear();
         isEmpty = true;
     }
-    public List<Product> deleteItem(String name){
+
+    public List<Product> deleteItem(String name) {
+
         List<Product> productList = new LinkedList<>();
-        Iterator<Product> iterator = products.iterator();
-        while(iterator.hasNext()){
-            Product element = iterator.next();
-            if(Objects.equals(element.getName(), name)){
-                productList.add(element);
-                iterator.remove();
-            }
+
+        if (map.containsKey(name)) {
+            productList = map.get(name);
+            map.remove(name);
         }
         return productList;
     }

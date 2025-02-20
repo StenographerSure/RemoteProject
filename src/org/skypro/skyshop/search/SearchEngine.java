@@ -1,12 +1,10 @@
 package org.skypro.skyshop.search;
 
+import com.sun.source.tree.Tree;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
 
@@ -15,14 +13,14 @@ public class SearchEngine {
     //private final Searchable[] searchables;
 
 
-    public List<Searchable> search(String SearchTerm) {
+    public Map<String, Searchable> search(String SearchTerm) {
         //int count = 0;
-        List<Searchable> results = new LinkedList<>();
+        Map<String, Searchable> results = new TreeMap<>();
         Iterator<Searchable> iterator = searchables.iterator();
         while (iterator.hasNext()) {
             Searchable element = iterator.next();
             if (element != null && element.toString().contains(SearchTerm)) {
-                results.add(element);
+                results.put(element.getStringRepresentation(), element);
             }
         }
 
