@@ -21,7 +21,7 @@ public class App {
         searchEngine.add(sausage);
         searchEngine.add(new SimpleProduct("applesauce", 15));
         searchEngine.add(new SimpleProduct("applejam", 15));
-        searchEngine.add(new Article("New app", "delicious applications beginning"));
+        searchEngine.add(new Article("A New app", "delicious applications beginning"));
         searchEngine.add(new Article("New app", "appappapp"));
 
         productBasket.addProduct(apple);
@@ -42,31 +42,36 @@ public class App {
 
         productBasket.displayBasket();
 
+        System.out.println("\n");
+
+        System.out.println(searchEngine.search("app"));
+
+
         //demo 2
 
-        try {
-            Product product = new SimpleProduct("new", 0);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        try {
-            Product product = new DiscountedProduct("   ", 0, 105);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        try {
-            System.out.println(searchEngine.searchPrecise("app"));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        try {
-            System.out.println(searchEngine.searchPrecise("JOB"));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+//        try {
+//            Product product = new SimpleProduct("new", 0);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        try {
+//            Product product = new DiscountedProduct("   ", 0, 105);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        try {
+//            System.out.println(searchEngine.searchPrecise("app"));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        try {
+//            System.out.println(searchEngine.searchPrecise("JOB"));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
 
     }
 }
