@@ -1,6 +1,7 @@
 package org.skypro.skyshop.search;
 
 import com.sun.source.tree.Tree;
+import org.skypro.skyshop.comparator.SearchableComparator;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.product.Product;
 
@@ -8,19 +9,21 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private final List<Searchable> searchables = new ArrayList<>();
+    //private final List<Searchable> searchables = new ArrayList<>();
+    private final Set<Searchable> searchablesSet = new HashSet<>();
 
-    //private final Searchable[] searchables;
+
+    public Set<Searchable> search(String SearchTerm) {
 
 
-    public Map<String, Searchable> search(String SearchTerm) {
-        //int count = 0;
-        Map<String, Searchable> results = new TreeMap<>();
-        Iterator<Searchable> iterator = searchables.iterator();
+        SearchableComparator searchableComparator = new SearchableComparator();
+        Set<Searchable> results = new TreeSet<Searchable>(searchableComparator);
+
+        Iterator<Searchable> iterator = searchablesSet.iterator();
         while (iterator.hasNext()) {
             Searchable element = iterator.next();
             if (element != null && element.toString().contains(SearchTerm)) {
-                results.put(element.getStringRepresentation(), element);
+                results.add(element);
             }
         }
 
@@ -30,10 +33,11 @@ public class SearchEngine {
     public Searchable searchPrecise(String SearchTerm) throws BestResultNotFound {
 
         List<Searchable> results = new LinkedList<>();
-        Iterator<Searchable> iterator = searchables.iterator();
+        Iterator<Searchable> iterator = searchablesSet.iterator();
 
         int preciseSearchableID = -1;
         int tempQuantity = 0;
+        Searchable bestmatch = null;
 
         while (iterator.hasNext()) {
             int quantity = 0;
@@ -45,13 +49,14 @@ public class SearchEngine {
             }
 
             if (quantity > tempQuantity) {
-                preciseSearchableID = searchables.indexOf(element);
+
+                bestmatch = element;
                 tempQuantity = quantity;
             }
         }
-        if (preciseSearchableID > -1) {
+        if (bestmatch != null) {
             //System.out.println(tempQuantity);
-            return searchables.get(preciseSearchableID);
+            return bestmatch;
         } else {
             throw new BestResultNotFound("Can't find objects with set string");
         }
@@ -60,7 +65,7 @@ public class SearchEngine {
 
 
     public void add(Searchable searchable) {
-        searchables.add(searchable);
+        searchablesSet.add(searchable);
 
     }
 }
