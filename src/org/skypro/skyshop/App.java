@@ -32,8 +32,6 @@ public class App {
         searchEngine.add(new Article("New app", "appappapp"));
 
 
-
-
         //demo
 
         productBasket.displayBasket();
@@ -50,7 +48,6 @@ public class App {
         System.out.println("\n");
 
         System.out.println(searchEngine.search("app"));
-
 
 
     }

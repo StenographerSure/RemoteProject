@@ -24,16 +24,19 @@ public class ProductBasket {
     }
 
     public int getTotal() {
-        int sum = 0;
+//        int sum = 0;
 
-        if (!isEmpty) {
-            for (List<Product> productList : map.values()) {
-                for (Product product : productList) {
-                    sum = sum + product.getPrice();
-                }
-            }
-        }
-        return sum;
+//        if (!isEmpty) {
+//            for (List<Product> productList : map.values()) {
+//                for (Product product : productList) {
+//                    sum = sum + product.getPrice();
+//                }
+//            }
+//        }
+        return map.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice).sum();
     }
 
     public void displayBasket() {
@@ -41,30 +44,21 @@ public class ProductBasket {
         if (isEmpty) {
             System.out.println("в корзине пусто");
         } else {
-            int specialProducts = 0;
-            for (List<Product> productList : map.values()) {
-                for (Product product : productList) {
-                    System.out.println(product.toString());
-                    if (product.isSpecial()) {
-                        specialProducts++;
-                    }
-                }
-            }
-            System.out.println("Итого: " + getTotal());
-            System.out.println("Специальных товаров: " + specialProducts);
+            map.values()
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .forEach(System.out::println);
+
+            System.out.printf("Итого: %d%n", getTotal());
+            System.out.printf("Специальных товаров: %d%n", getSpecialCount());
         }
     }
 
     public boolean checkProduct(String productName) {
         boolean isPresent = false;
         if (!isEmpty) {
-            for (List<Product> productList : map.values()) {
-                for (Product product : productList) {
-                    if (product.getName().equals(productName)) {
-                        isPresent = true;
-                        break;
-                    }
-                }
+            if (map.containsKey(productName)) {
+                isPresent = true;
             }
         }
         return isPresent;
@@ -84,6 +78,14 @@ public class ProductBasket {
             map.remove(name);
         }
         return productList;
+    }
+
+    private int getSpecialCount() {
+        return (int) map.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
 }
