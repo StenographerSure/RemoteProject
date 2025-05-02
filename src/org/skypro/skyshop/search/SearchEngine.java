@@ -6,36 +6,26 @@ import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
 
-    //private final List<Searchable> searchables = new ArrayList<>();
     private final Set<Searchable> searchablesSet = new HashSet<>();
 
 
     public Set<Searchable> search(String SearchTerm) {
 
 
-        SearchableComparator searchableComparator = new SearchableComparator();
-        Set<Searchable> results = new TreeSet<Searchable>(searchableComparator);
+        return searchablesSet.stream()
+                .filter(searchable -> searchable.searchTerm().contains(SearchTerm))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchableComparator())));
 
-        Iterator<Searchable> iterator = searchablesSet.iterator();
-        while (iterator.hasNext()) {
-            Searchable element = iterator.next();
-            if (element != null && element.toString().contains(SearchTerm)) {
-                results.add(element);
-            }
-        }
-
-        return results;
     }
 
     public Searchable searchPrecise(String SearchTerm) throws BestResultNotFound {
 
-        List<Searchable> results = new LinkedList<>();
         Iterator<Searchable> iterator = searchablesSet.iterator();
 
-        int preciseSearchableID = -1;
         int tempQuantity = 0;
         Searchable bestmatch = null;
 
@@ -55,7 +45,6 @@ public class SearchEngine {
             }
         }
         if (bestmatch != null) {
-            //System.out.println(tempQuantity);
             return bestmatch;
         } else {
             throw new BestResultNotFound("Can't find objects with set string");
