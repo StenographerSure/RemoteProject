@@ -24,15 +24,6 @@ public class ProductBasket {
     }
 
     public int getTotal() {
-//        int sum = 0;
-
-//        if (!isEmpty) {
-//            for (List<Product> productList : map.values()) {
-//                for (Product product : productList) {
-//                    sum = sum + product.getPrice();
-//                }
-//            }
-//        }
         return map.values()
                 .stream()
                 .flatMap(Collection::stream)
